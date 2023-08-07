@@ -1,0 +1,73 @@
+body{
+  background-color: beige;
+  /* background-image: none; */
+}
+
+.list li {
+  list-style: none;
+  text-align: center;
+  margin: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+.list {
+  background-color: rgb(216, 216, 216);
+  padding: 10px;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
+  border-radius: 10px;
+}
+.formdiv {
+  text-align: center;
+  width: 100%;
+}
+.formdiv input {
+  margin: 10px;
+  padding: 5px;
+}
+.btn-danger:hover {
+  background-color: red;
+  color: white;
+}
+.btn-danger {
+  background-color: rgb(231, 162, 162);
+  color: black;
+}
+.box-div {
+  width: 150px;
+  text-align: start;
+}
+.box-div-name {
+  width: 100px;
+  text-align: start;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.formdiv h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+  color-scheme: light dark;
+}
+.logoutBtn {
+  width: 100%;
+  margin: 10px;
+}
+.logoutBtn Button {
+  width: 100%;
+  float: right;
+}
+.header {
+  text-align: center;
+}
+.pagechanger {
+  margin: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  bottom: 20px;
+  right: 30px;
+}
