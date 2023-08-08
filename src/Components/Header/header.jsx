@@ -25,7 +25,7 @@ const Header = () => {
     const token = localStorage.getItem("token");
     const getPremium = async () => {
       const response = await axios.get(
-        "http://13.126.227.177:3000/purchase/premium",
+        "http://43.205.148.73:3000/purchase/premium",
         {
           headers: { Authorisation: token },
         }
@@ -36,7 +36,7 @@ const Header = () => {
         order_id: response.data.order.id,
         handler: async function (response) {
           const res = await axios.post(
-            "http://13.126.227.177:3000/purchase/updateTransactionStatus",
+            "http://43.205.148.73:3000/purchase/updateTransactionStatus",
             {
               order_id: options.order_id,
               payment_id: response.razorpay_payment_id,
@@ -64,7 +64,7 @@ const Header = () => {
   const leaderboardHandler = () => {
     const getData = async () => {
       const res = await axios.get(
-        "http://13.126.227.177:3000/purchase/premium/showLeaderBoard"
+        "http://43.205.148.73:3000/purchase/premium/showLeaderBoard"
       );
       setUsers(res.data);
       setModalShow(true);

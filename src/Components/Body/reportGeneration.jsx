@@ -14,7 +14,7 @@ const ReportGeneration = () => {
     const expense = async () => {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://13.126.227.177:3000/expense/get-all-expenses",
+        "http://43.205.148.73:3000/expense/get-all-expenses",
         {
           headers: { Authorisation: token },
         }
@@ -109,7 +109,7 @@ const ReportGeneration = () => {
   );
   const downloadHandler = async () => {
     const token = localStorage.getItem("token");
-    const response = await axios.get("http://13.126.227.177:3000/expense/download", {
+    const response = await axios.get("http://43.205.148.73:3000/expense/download", {
       headers: { Authorisation: token },
     });
     window.location.href = response.data.fileURL;
@@ -117,7 +117,7 @@ const ReportGeneration = () => {
   const showExpenseHandler = async () => {
     const token = localStorage.getItem("token");
     const response = await axios.get(
-      "http://13.126.227.177:3000/expense/show-download",
+      "http://43.205.148.73:3000/expense/show-download",
       {
         headers: { Authorisation: token },
       }

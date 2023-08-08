@@ -13,7 +13,7 @@ const Password = () => {
     console.log(enteredPassword, userId);
     const postPasswordRequest = async () => {
       const response = await axios.post(
-        "http://13.126.227.177:3000/user/resetlink",
+        "http://43.205.148.73:3000/user/resetlink",
         {
           password: enteredPassword,
           userId,

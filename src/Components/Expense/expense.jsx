@@ -19,7 +19,7 @@ const Expense = () => {
       const token = localStorage.getItem("token");
       const row = localStorage.getItem("preferencerow");
       const response = await fetch(
-        `http://13.126.227.177:3000/expense/get-expenses?e=1&row=${row || 5}`,
+        `http://43.205.148.73:3000/expense/get-expenses?e=1&row=${row || 5}`,
         {
           headers: { Authorisation: token },
         }
@@ -50,7 +50,7 @@ const Expense = () => {
     const update = async () => {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://13.126.227.177:3000/expense/delete-expense/" + id,
+        "http://43.205.148.73:3000/expense/delete-expense/" + id,
         {
           method: "DELETE",
           headers: {
@@ -77,7 +77,7 @@ const Expense = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://13.126.227.177:3000/expense/delete-expense/" + e,
+        "http://43.205.148.73:3000/expense/delete-expense/" + e,
         {
           method: "DELETE",
           headers: {
@@ -129,7 +129,7 @@ const Expense = () => {
     const token = localStorage.getItem("token");
     const postData = async () => {
       const response = await fetch(
-        "http://13.126.227.177:3000/expense/add-expense",
+        "http://43.205.148.73:3000/expense/add-expense",
         {
           method: "POST",
           body: JSON.stringify(obj),

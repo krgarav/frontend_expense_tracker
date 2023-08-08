@@ -33,7 +33,7 @@ const Auth = () => {
       };
       const postLoginData = async () => {
         try {
-          const response = await fetch("http://13.126.227.177:3000/user/login", {
+          const response = await fetch("http://43.205.148.73:3000/user/login", {
             method: "POST",
             body: JSON.stringify(loginObj),
             headers: {
@@ -65,7 +65,7 @@ const Auth = () => {
       };
       const postSignupData = async () => {
         try {
-          const response = await fetch("http://13.126.227.177:3000/user/signup", {
+          const response = await fetch("http://43.205.148.73:3000/user/signup", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

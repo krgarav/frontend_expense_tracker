@@ -17,7 +17,7 @@ const Pagechanger = () => {
     const getCount = async () => {
       try {
         const response = await axios.get(
-          "http://13.126.227.177:3000/expense/get-expense-count/" + row,
+          "http://43.205.148.73:3000/expense/get-expense-count/" + row,
           {
             headers: { Authorisation: token },
           }
@@ -50,7 +50,7 @@ const Pagechanger = () => {
         const token = localStorage.getItem("token");
         const row = localStorage.getItem("preferencerow") || 5;
         const response = await fetch(
-          `http://13.126.227.177:3000/expense/get-expenses?e=${e}&row=${row}`,
+          `http://43.205.148.73:3000/expense/get-expenses?e=${e}&row=${row}`,
           {
             headers: { Authorisation: token },
           }
@@ -71,7 +71,7 @@ const Pagechanger = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://13.126.227.177:3000/expense/get-expenses?e=${selectedPage}&row=${row}`,
+          `http://43.205.148.73:3000/expense/get-expenses?e=${selectedPage}&row=${row}`,
           {
             headers: { Authorisation: token },
           }

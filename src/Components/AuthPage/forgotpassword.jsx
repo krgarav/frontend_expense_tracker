@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     const sendRequest = async () => {
       try {
         const response = await axios.post(
-          "http://13.126.227.177:3000/password/forgotpassword",
+          "http://43.205.148.73:3000/password/forgotpassword",
           {
             mail: enteredMail,
           }
