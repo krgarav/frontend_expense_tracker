@@ -3,14 +3,14 @@ import React, { Fragment, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { expenseAction } from "../../Store/expense-reducer";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./pagination.module.css";
 const Pagechanger = () => {
   const [selectedPage, setSelectedPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [alltabs, setAllTabs] = useState([]);
   const dispatch = useDispatch();
-
+  const listItem = useSelector((state) => state.expense.expense);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const row = localStorage.getItem("preferencerow") || 5;
@@ -42,7 +42,7 @@ const Pagechanger = () => {
       }
     };
     getCount();
-  }, [totalPages, selectedPage]);
+  }, [totalPages, selectedPage, listItem]);
 
   const pageHandler = (e) => {
     const fetchData = async () => {
@@ -62,6 +62,7 @@ const Pagechanger = () => {
       }
     };
     fetchData();
+    localStorage.setItem('selectedpage',e);
     setSelectedPage(e);
   };
   const rowHandler = (event) => {

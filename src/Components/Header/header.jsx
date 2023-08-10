@@ -23,48 +23,48 @@ const Header = () => {
   };
   const premiumHandler = () => {
     const token = localStorage.getItem("token");
+    console.log("clicked");
     const getPremium = async () => {
-     try{
-      const response = await axios.get(
-        "http://43.205.148.73:3000/purchase/premium",
-        {
-          headers: { Authorisation: token },
-        }
-      );
-
-      var options = {
-        key: response.data.key_id,
-        order_id: response.data.order.id,
-        handler: async function (response) {
-          const res = await axios.post(
-            "http://43.205.148.73:3000/purchase/updateTransactionStatus",
-            {
-              order_id: options.order_id,
-              payment_id: response.razorpay_payment_id,
-            },
-            {
-              headers: { Authorisation: token },
-            }
-          );
-
-          alert("you are premium user now");
-          localStorage.setItem("userStatus", true);
-          setState(true);
-        },
-      };
-      const rzpl = new Razorpay(options);
-      rzpl.open();
-
-      rzpl.on("payment.failed", (response) => {
+      try {
+        const response = await axios.get(
+          "http://43.205.148.73:3000/purchase/premium",
+          {
+            headers: { Authorisation: token },
+          }
+        );
         console.log(response);
-        alert(JSON.stringify(response.error.description));
-      });
-    }catch(err){
-      console.log(err)
-    }
+        var options = {
+          key: response.data.key_id,
+          order_id: response.data.order.id,
+          handler: async function (response) {
+            const res = await axios.post(
+              "http://43.205.148.73:3000/purchase/updateTransactionStatus",
+              {
+                order_id: options.order_id,
+                payment_id: response.razorpay_payment_id,
+              },
+              {
+                headers: { Authorisation: token },
+              }
+            );
+
+            alert("you are premium user now");
+            localStorage.setItem("userStatus", true);
+            setState(true);
+          },
+        };
+        const rzpl = new Razorpay(options);
+        rzpl.open();
+
+        rzpl.on("payment.failed", (response) => {
+          console.log(response);
+          alert(JSON.stringify(response.error.description));
+        });
+      } catch (err) {
+        console.log(err);
+      }
     };
     getPremium();
-  
   };
   const leaderboardHandler = () => {
     const getData = async () => {

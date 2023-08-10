@@ -18,8 +18,10 @@ const Expense = () => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
       const row = localStorage.getItem("preferencerow");
+      const selectedPage = localStorage.getItem("selectedpage")
+      // if(selectedPage){}
       const response = await fetch(
-        `http://43.205.148.73:3000/expense/get-expenses?e=1&row=${row || 5}`,
+        `http://43.205.148.73:3000/expense/get-expenses?e=${selectedPage||1}&row=${row || 5}`,
         {
           headers: { Authorisation: token },
         }
@@ -208,11 +210,11 @@ const Expense = () => {
         )}
         {liElement.length === 0 && <h2>No Expense Available</h2>}
       </div>
-      {liElement.length != 0 && (
+      {/* {liElement.length !=0 && ( */}
         <div className={classes.pagechanger}>
           <Pagechanger />
         </div>
-      )}
+      {/* )} */}
     </Fragment>
   );
 };
