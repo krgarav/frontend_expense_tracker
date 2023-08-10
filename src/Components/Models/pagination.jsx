@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { expenseAction } from "../../Store/expense-reducer";
 import { useDispatch } from "react-redux";
-
+import classes from "./pagination.module.css";
 const Pagechanger = () => {
   const [selectedPage, setSelectedPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -86,7 +86,7 @@ const Pagechanger = () => {
   };
   return (
     <Fragment>
-      <div style={{ display: "flex" }}>
+      <div className={classes.selecttab} style={{ display: "flex" }}>
         <label htmlFor="rowperpage">Row per page : </label>
         <select id="rowperpage" onChange={rowHandler}>
           <option value="5">5</option>

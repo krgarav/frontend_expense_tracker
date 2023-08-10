@@ -135,9 +135,9 @@ const Auth = () => {
               </button>
             </Form>
           </div>
-          <div>
-            <p className={classes.toggler} onClick={stateHandler}>
-              {state ? "New -user Signup" : "Existing user - Login"}
+          <div className={classes.toggler}>
+            <p  onClick={stateHandler}>
+              {state ? "New - User Signup ?" : "Existing user - Login"}
             </p>
           </div>
         </div>

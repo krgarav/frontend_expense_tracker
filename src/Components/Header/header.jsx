@@ -24,6 +24,7 @@ const Header = () => {
   const premiumHandler = () => {
     const token = localStorage.getItem("token");
     const getPremium = async () => {
+     try{
       const response = await axios.get(
         "http://43.205.148.73:3000/purchase/premium",
         {
@@ -58,8 +59,12 @@ const Header = () => {
         console.log(response);
         alert(JSON.stringify(response.error.description));
       });
+    }catch(err){
+      console.log(err)
+    }
     };
     getPremium();
+  
   };
   const leaderboardHandler = () => {
     const getData = async () => {

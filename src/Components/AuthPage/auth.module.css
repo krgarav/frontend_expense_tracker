@@ -1,12 +1,6 @@
-/* body {
-  background-image: url("../../../public/water.jpg");
-  background-size: cover; 
-  background-repeat: no-repeat; 
-} */
-
 .formBox {
   background-color: rgb(255, 255, 255);
-  padding: 10px 50px;
+  padding: 1rem 1.5rem;
   border-radius: 10px;
 }
 .formBox h3 {
@@ -22,6 +16,9 @@
   margin-top: 10px;
   background-color: rgb(255, 255, 255);
   
+}
+.toggler p {
+  padding: 5px;
 }
 .toggler:hover {
   color: blue;
@@ -46,13 +43,11 @@
  
 }
 .forgot {
-  /* background-color: black; */
   cursor: pointer;
-  /* text-align: center; */
   width: 100%;
-  margin-left: 50%;
-  /* float: right; */
-  font-size: small;
+  margin-left: 40%;
+ 
+  font-size: 0.8rem;
 }
 .forgot:hover {
   color: blue;

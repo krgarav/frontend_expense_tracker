@@ -95,7 +95,7 @@ const Expense = () => {
     return (
       <li key={item.id}>
         <span className={classes["box-div"]}>
-          <h4>Rs {item.amount}/-</h4>
+          <h4> &#8377; {item.amount}/-</h4>
         </span>
         <span className={classes["box-div"]}>
           <p>{item.description}</p>
@@ -107,7 +107,10 @@ const Expense = () => {
           <button onClick={() => editHandler(item)}> Edit</button>
         </span>
         <span className={classes["box-div"]}>
-          <button className={classes["btn-danger"]} onClick={() => deleteHandler(item.id)}>
+          <button
+            className={classes["btn-danger"]}
+            onClick={() => deleteHandler(item.id)}
+          >
             Delete
           </button>
         </span>
@@ -155,7 +158,7 @@ const Expense = () => {
       <h1 className={classes.header}>Expense Tracker</h1>
       <div className={classes.formdiv}>
         <form onSubmit={submitHandler}>
-          <label htmlFor="pqty">Choose Expense Amount : </label>
+          <label htmlFor="pqty">Enter Expense Amount : </label>
           <input
             type="number"
             name="productQuantity"
@@ -163,7 +166,7 @@ const Expense = () => {
             ref={amountRef}
             required
           />
-          <label htmlFor="pdes">Choose Description : </label>
+          <label htmlFor="pdes">Enter Description : </label>
           <input
             type="text"
             name="productDescription"
@@ -174,7 +177,9 @@ const Expense = () => {
           <label htmlFor="pcategory">Choose Category : </label>
           <select id="pcategory" ref={categoryRef}>
             <option value="Food">Food</option>
+            <option value="Shopping">Shopping</option>
             <option value="Fuel">Fuel</option>
+            <option value="Vacation">Vacation</option>
             <option value="Other">Other</option>
           </select>
           <button type="submit">Add Item</button>
@@ -201,11 +206,13 @@ const Expense = () => {
             {liElement}
           </ul>
         )}
-        {liElement.length === 0 && <h2>No Products Available</h2>}
+        {liElement.length === 0 && <h2>No Expense Available</h2>}
       </div>
-      <div className={classes.pagechanger}>
-        <Pagechanger />
-      </div>
+      {liElement.length != 0 && (
+        <div className={classes.pagechanger}>
+          <Pagechanger />
+        </div>
+      )}
     </Fragment>
   );
 };
