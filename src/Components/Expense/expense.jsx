@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import classes from "./expense.module.css";
 import { useNavigate } from "react-router";
 import Header from "../Header/Header";
-import Pagechanger from "../Models/pagination";
+import Pagechanger from "../Models/Pagination";
 import { expenseAction } from "../../Store/expense-reducer";
 
 const Expense = () => {

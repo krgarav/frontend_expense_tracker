@@ -1,10 +1,10 @@
 import "./App.css";
-import Auth from "./Components/AuthPage/auth";
+import Auth from "./Components/AuthPage/Auth";
 import { Route, Routes } from "react-router";
-import Expense from "./Components/Expense/expense";
+import Expense from "./Components/Expense/Expense";
 import ForgotPassword from "./Components/AuthPage/Forgotpassword";
-import Password from "./Components/AuthPage/password";
-import ReportGeneration from "./Components/Body/reportGeneration";
+import Password from "./Components/AuthPage/Password";
+import ReportGeneration from "./Components/Body/ReportGeneration";
 import Errorpage from "./Components/ErrorPage/Errorpage";
 function App() {
   return (
