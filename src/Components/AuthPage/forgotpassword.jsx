@@ -20,7 +20,7 @@ const ForgotPassword = () => {
           alert("Reset password link sent to your mail successfully");
           navigate("/", { replace: true });
         }
-      } catch (err) {
+      } catch (err) { //for error catching
         alert("Something went wrong");
         console.log(err);
       }
