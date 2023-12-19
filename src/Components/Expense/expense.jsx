@@ -2,26 +2,27 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./expense.module.css";
 import { useNavigate } from "react-router";
-import Header from "../Header/header";
+import Header from "../Header/Header";
 import Pagechanger from "../Models/pagination";
 import { expenseAction } from "../../Store/expense-reducer";
+
 const Expense = () => {
-  // const [data, setData] = useState([]);
   const [state, setState] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
   const dispatch = useDispatch();
   const listItem = useSelector((state) => state.expense.expense);
+  const PORT = import.meta.env.VITE_REACT_PORT;
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
       const row = localStorage.getItem("preferencerow");
-      const selectedPage = localStorage.getItem("selectedpage")
+      const selectedPage = localStorage.getItem("selectedpage");
       // if(selectedPage){}
       const response = await fetch(
-        `http://43.205.148.73:3000/expense/get-expenses?e=${selectedPage||1}&row=${row || 5}`,
+        PORT + `/expense/get-expenses?e=${selectedPage || 1}&row=${row || 5}`,
         {
           headers: { Authorisation: token },
         }
@@ -48,18 +49,15 @@ const Expense = () => {
     const amount = e.amount;
     const description = e.description;
     const category = e.category;
-    const id = e.id;
+    const id = e._id;
     const update = async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        "http://43.205.148.73:3000/expense/delete-expense/" + id,
-        {
-          method: "DELETE",
-          headers: {
-            Authorisation: token,
-          },
-        }
-      );
+      const response = await fetch(PORT + "/expense/delete-expense/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorisation: token,
+        },
+      });
 
       if (response.ok) {
         amountRef.current.focus();
@@ -77,16 +75,12 @@ const Expense = () => {
   const deleteHandler = (e) => {
     const deleteProduct = async () => {
       const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        "http://43.205.148.73:3000/expense/delete-expense/" + e,
-        {
-          method: "DELETE",
-          headers: {
-            Authorisation: token,
-          },
-        }
-      );
+      const response = await fetch(PORT + "/expense/delete-expense/" + e, {
+        method: "DELETE",
+        headers: {
+          Authorisation: token,
+        },
+      });
       if (response.ok) {
         setState((prev) => !prev);
       }
@@ -94,8 +88,17 @@ const Expense = () => {
     deleteProduct();
   };
   const liElement = listItem.map((item) => {
+    // console.log(item)
     return (
-      <li key={item.id}>
+      <li key={item._id}>
+        {/* <Container>
+          <Row>
+            <Col></Col>
+            <Col>1</Col>
+            <Col>1</Col>
+          </Row>
+        </Container> */}
+        {/* <span className={classes.listelem}> */}
         <span className={classes["box-div"]}>
           <h4> &#8377; {item.amount}/-</h4>
         </span>
@@ -105,17 +108,20 @@ const Expense = () => {
         <span className={classes["box-div"]}>
           <p> {item.category} </p>
         </span>
+        {/* </span> */}
+        {/* <span className={classes.listelem1}> */}
         <span className={classes["box-div"]}>
           <button onClick={() => editHandler(item)}> Edit</button>
         </span>
         <span className={classes["box-div"]}>
           <button
             className={classes["btn-danger"]}
-            onClick={() => deleteHandler(item.id)}
+            onClick={() => deleteHandler(item._id)}
           >
             Delete
           </button>
         </span>
+        {/* </span> */}
       </li>
     );
   });
@@ -133,17 +139,14 @@ const Expense = () => {
     };
     const token = localStorage.getItem("token");
     const postData = async () => {
-      const response = await fetch(
-        "http://43.205.148.73:3000/expense/add-expense",
-        {
-          method: "POST",
-          body: JSON.stringify(obj),
-          headers: {
-            "Content-Type": "application/json",
-            Authorisation: token,
-          },
-        }
-      );
+      const response = await fetch(PORT + "/expense/add-expense", {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+          Authorisation: token,
+        },
+      });
       if (response.ok) {
         setState((prev) => !prev);
       }
@@ -210,11 +213,9 @@ const Expense = () => {
         )}
         {liElement.length === 0 && <h2>No Expense Available</h2>}
       </div>
-      {/* {liElement.length !=0 && ( */}
-        <div className={classes.pagechanger}>
-          <Pagechanger />
-        </div>
-      {/* )} */}
+      <div className={classes.pagechanger}>
+        <Pagechanger />
+      </div>
     </Fragment>
   );
 };

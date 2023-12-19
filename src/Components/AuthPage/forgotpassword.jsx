@@ -6,17 +6,15 @@ import { useNavigate } from "react-router";
 const ForgotPassword = () => {
   const mailRef = useRef();
   const navigate = useNavigate();
+  const PORT = import.meta.env.VITE_REACT_PORT;
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredMail = mailRef.current.value;
     const sendRequest = async () => {
       try {
-        const response = await axios.post(
-          "http://43.205.148.73:3000/password/forgotpassword",
-          {
-            mail: enteredMail,
-          }
-        );
+        const response = await axios.post(PORT + "/password/forgotpassword", {
+          mail: enteredMail,
+        });
 
         if (response.status === 200) {
           alert("Reset password link sent to your mail successfully");

@@ -3,12 +3,13 @@ import classes from "./header.module.css";
 import { Nav, Container, Button, Navbar, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import LeaderBoard from "../Models/leaderboard";
+import LeaderBoard from "../Models/Leaderboard";
 import { LinkContainer } from "react-router-bootstrap";
 const Header = () => {
   const [state, setState] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [users, setUsers] = useState([]);
+  const PORT = import.meta.env.VITE_REACT_PORT;
   useEffect(() => {
     const status = localStorage.getItem("userStatus");
     if (status === "true") {
@@ -26,19 +27,16 @@ const Header = () => {
     console.log("clicked");
     const getPremium = async () => {
       try {
-        const response = await axios.get(
-          "http://43.205.148.73:3000/purchase/premium",
-          {
-            headers: { Authorisation: token },
-          }
-        );
+        const response = await axios.get(PORT + "/purchase/premium", {
+          headers: { Authorisation: token },
+        });
         console.log(response);
         var options = {
           key: response.data.key_id,
           order_id: response.data.order.id,
           handler: async function (response) {
             const res = await axios.post(
-              "http://43.205.148.73:3000/purchase/updateTransactionStatus",
+              PORT + "/purchase/updateTransactionStatus",
               {
                 order_id: options.order_id,
                 payment_id: response.razorpay_payment_id,
@@ -68,15 +66,13 @@ const Header = () => {
   };
   const leaderboardHandler = () => {
     const getData = async () => {
-      const res = await axios.get(
-        "http://43.205.148.73:3000/purchase/premium/showLeaderBoard"
-      );
+      const res = await axios.get(PORT + "/purchase/premium/showLeaderBoard");
       setUsers(res.data);
       setModalShow(true);
     };
     getData();
   };
-  const url = `/reportgeneration/${state}`;
+  // const url = `/reportgeneration/${state}`;
   return (
     <Fragment>
       <Navbar
@@ -97,7 +93,7 @@ const Header = () => {
               <LinkContainer to="/expenses">
                 <Nav.Link as="a">Home</Nav.Link>
               </LinkContainer>
-              <LinkContainer to={url}>
+              <LinkContainer to="/reportgeneration">
                 <Nav.Link as="a">Day to Day Expenses</Nav.Link>
               </LinkContainer>
             </Nav>

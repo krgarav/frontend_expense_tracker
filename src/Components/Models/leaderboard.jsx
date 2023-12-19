@@ -3,11 +3,11 @@ const LeaderBoard = (props) => {
   const allItems = props.item.map((item) => {
     return (
       <Row key={item.id}>
-        <Col xs={12} md={8}>
-           {item.name}
+        <Col xs={6} md={8}>
+          {item.name}
         </Col>
         <Col xs={6} md={4}>
-           {item.totalExpense||0}
+          &#8377;{item.totalExpense || 0}
         </Col>
       </Row>
     );
@@ -22,16 +22,15 @@ const LeaderBoard = (props) => {
       <Modal.Body className="grid-example">
         <Container>
           <Row>
-            <Col xs={12} md={8}>
-              Name 
+            <Col xs={6} md={8}>
+              Name
             </Col>
             <Col xs={6} md={4}>
-              Total Expenses 
+              Total Expenses
             </Col>
           </Row>
-          <hr/>
+          <hr />
           {allItems}
-          
         </Container>
       </Modal.Body>
       <Modal.Footer>

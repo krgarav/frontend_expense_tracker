@@ -27,7 +27,7 @@
 .parent {
   display: block;
   justify-content: center;
-  background-image: url("../../../public/water.jpg");
+  background-image: url("../../../water.jpg");
   height: 100vh;
   width: 100vw;
   background-size: cover; 
@@ -57,4 +57,7 @@
   border-radius: 50px;
   width: 100%;
   background-color: aqua;
+}
+.spin{
+  text-align: center;
 }

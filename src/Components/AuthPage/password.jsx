@@ -7,19 +7,17 @@ const Password = () => {
   const passwordRef = useRef();
   const { userId } = useParams();
   const navigate = useNavigate();
+  const PORT = import.meta.env.VITE_REACT_PORT;
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredPassword = passwordRef.current.value;
-    console.log(enteredPassword, userId);
     const postPasswordRequest = async () => {
-      const response = await axios.post(
-        "http://43.205.148.73:3000/user/resetlink",
-        {
-          password: enteredPassword,
-          userId,
-        }
-      );
-      if (response.ok) {
+      const response = await axios.post(PORT + "/user/resetlink", {
+        password: enteredPassword,
+        userId,
+      });
+      if (response.data.data === "success") {
+        alert("Password changed successfully");
         navigate("/", { replace: true });
       }
     };

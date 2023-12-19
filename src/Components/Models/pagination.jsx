@@ -11,13 +11,15 @@ const Pagechanger = () => {
   const [alltabs, setAllTabs] = useState([]);
   const dispatch = useDispatch();
   const listItem = useSelector((state) => state.expense.expense);
+  const PORT = import.meta.env.VITE_REACT_PORT;
   useEffect(() => {
     const token = localStorage.getItem("token");
     const row = localStorage.getItem("preferencerow") || 5;
+    const PORT = import.meta.env.VITE_REACT_PORT;
     const getCount = async () => {
       try {
         const response = await axios.get(
-          "http://43.205.148.73:3000/expense/get-expense-count/" + row,
+          PORT + "/expense/get-expense-count/" + row,
           {
             headers: { Authorisation: token },
           }
@@ -50,7 +52,7 @@ const Pagechanger = () => {
         const token = localStorage.getItem("token");
         const row = localStorage.getItem("preferencerow") || 5;
         const response = await fetch(
-          `http://43.205.148.73:3000/expense/get-expenses?e=${e}&row=${row}`,
+          PORT + `/expense/get-expenses?e=${e}&row=${row}`,
           {
             headers: { Authorisation: token },
           }
@@ -62,7 +64,7 @@ const Pagechanger = () => {
       }
     };
     fetchData();
-    localStorage.setItem('selectedpage',e);
+    localStorage.setItem("selectedpage", e);
     setSelectedPage(e);
   };
   const rowHandler = (event) => {
@@ -72,7 +74,7 @@ const Pagechanger = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://43.205.148.73:3000/expense/get-expenses?e=${selectedPage}&row=${row}`,
+          PORT + `/expense/get-expenses?e=${selectedPage}&row=${row}`,
           {
             headers: { Authorisation: token },
           }

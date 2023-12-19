@@ -1,25 +1,23 @@
-import { useParams } from "react-router";
 import { Fragment, useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import classes from "./reportGeneration.module.css";
-import Header from "../Header/header";
+import Header from "../Header/Header";
 import axios from "axios";
-import AllDownloads from "../Models/alldownloads";
+import AllDownloads from "../Models/Alldownloads";
+import { useSelector } from "react-redux";
 const ReportGeneration = () => {
   const [data, setData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [downloads, setDownloads] = useState([]);
-  const { state } = useParams();
+  const userStatus = useSelector((state) => state.user.userStatus);
+  const PORT = import.meta.env.VITE_REACT_PORT;
+
   useEffect(() => {
     const expense = async () => {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://43.205.148.73:3000/expense/get-all-expenses",
-        {
-          headers: { Authorisation: token },
-        }
-      );
-
+      const response = await axios.get(PORT + "/expense/get-all-expenses", {
+        headers: { Authorisation: token },
+      });
       const sortedItem = response.data.sort((a, b) => {
         const aDate = new Date(a.createdAt).getTime();
         const bDate = new Date(b.createdAt).getTime();
@@ -29,10 +27,11 @@ const ReportGeneration = () => {
     };
     expense();
   }, []);
+
   const dailyTableData = data.map((item) => {
     const date = item.createdAt.split("T")[0];
     return (
-      <tr key={item.id}>
+      <tr key={item._id}>
         <td>{date}</td>
         <td>{item.description}</td>
         <td>{item.category}</td>
@@ -81,12 +80,12 @@ const ReportGeneration = () => {
     if (!monthlySum[item.monthName]) {
       monthlySum[item.monthName] = 0;
     }
-    monthlySum[item.monthName] += item.amount;
+    monthlySum[item.monthName] += +item.amount;
 
     if (!weeklySum[item.weekDayName]) {
       weeklySum[item.weekDayName] = 0;
     }
-    weeklySum[item.weekDayName] += item.amount;
+    weeklySum[item.weekDayName] += +item.amount;
   });
 
   const monthlyTableRows = Object.entries(monthlySum).map(
@@ -109,27 +108,26 @@ const ReportGeneration = () => {
   );
   const downloadHandler = async () => {
     const token = localStorage.getItem("token");
-    const response = await axios.get("http://43.205.148.73:3000/expense/download", {
+    const response = await axios.get(PORT + "/expense/download", {
       headers: { Authorisation: token },
     });
+    console.log(response);
     window.location.href = response.data.fileURL;
   };
   const showExpenseHandler = async () => {
     const token = localStorage.getItem("token");
-    const response = await axios.get(
-      "http://43.205.148.73:3000/expense/show-download",
-      {
-        headers: { Authorisation: token },
-      }
-    );
+    const response = await axios.get(PORT + "/expense/show-download", {
+      headers: { Authorisation: token },
+    });
+
     setModalShow(true);
     setDownloads(response.data.data);
-    console.log(response.data.data);
+    // console.log(response.data.data);
   };
   return (
     <Fragment>
       <Header />
-      {state === "true" && (
+      {userStatus === true && (
         <Container>
           <h4 className={classes.heading}>Daily Expense</h4>
           <Table striped bordered>
@@ -168,13 +166,13 @@ const ReportGeneration = () => {
           </Table>
         </Container>
       )}
-      {state === "true" && (
+      {userStatus === true && (
         <div className={classes.btn}>
           <Button onClick={showExpenseHandler}>Show Downloaded Expenses</Button>
           <Button onClick={downloadHandler}>Download Expenses</Button>
         </div>
       )}
-      {state === "false" && (
+      {userStatus === false && (
         <Container>
           <h4>User Not premium.</h4>
           <p>

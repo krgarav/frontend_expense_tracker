@@ -1,14 +1,20 @@
 import { Fragment, useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import classes from "./auth.module.css";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { userAction } from "../../Store/User-reducer";
+import Spinner from "react-bootstrap/Spinner";
 const Auth = () => {
   const navigate = useNavigate();
   const [state, setState] = useState(true);
+  const [spin, setSpin] = useState(false);
   const enteredEmail = useRef();
   const enteredName = useRef();
   const enteredPassword = useRef();
+  const dispatch = useDispatch();
+  const PORT = import.meta.env.VITE_REACT_PORT;
+
   const stateHandler = () => {
     if (state) {
       enteredEmail.current.value = "";
@@ -33,7 +39,8 @@ const Auth = () => {
       };
       const postLoginData = async () => {
         try {
-          const response = await fetch("http://43.205.148.73:3000/user/login", {
+          setSpin(true);
+          const response = await fetch(PORT + "/user/login", {
             method: "POST",
             body: JSON.stringify(loginObj),
             headers: {
@@ -44,14 +51,17 @@ const Auth = () => {
           if (data.error) {
             throw new Error(data.error);
           } else {
+            dispatch(userAction.addUserStatus(data.ispremiumuser));
+            dispatch(userAction.addToken(data.token));
             localStorage.setItem("token", data.token);
             localStorage.setItem("userStatus", data.ispremiumuser);
-            alert(data.data);
+            // alert(data.data);
             navigate("/expenses", { replace: true });
           }
         } catch (err) {
           alert(err.message);
         }
+        setSpin(false);
       };
       postLoginData();
     } else {
@@ -65,7 +75,7 @@ const Auth = () => {
       };
       const postSignupData = async () => {
         try {
-          const response = await fetch("http://43.205.148.73:3000/user/signup", {
+          const response = await fetch(PORT + "/user/signup", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -130,13 +140,21 @@ const Auth = () => {
                   Forgot Password ?
                 </p>
               )}
+              {/* {!spin && ( */}
               <button className={classes.submitButton} type="submit">
-                {state ? "Login" : "Sign up"}
+                {!spin && (state ? "Login" : "Sign up")}
+                {spin && (
+                  <Spinner
+                    className={classes.submitButton}
+                    animation="border"
+                  />
+                )}
               </button>
+              {/* )} */}
             </Form>
           </div>
           <div className={classes.toggler}>
-            <p  onClick={stateHandler}>
+            <p onClick={stateHandler}>
               {state ? "New - User Signup ?" : "Existing user - Login"}
             </p>
           </div>

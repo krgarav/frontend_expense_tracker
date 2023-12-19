@@ -1,17 +1,17 @@
 import { Modal, Row, Col, Container, Button } from "react-bootstrap";
 const AllDownloads = (props) => {
   const allItems = props.item.map((item) => {
-    const date = item.createdAt.split("T")[0];
-    const time = item.createdAt.split("T")[1].split(".")[0];
+    const date = item.createdAt.split(" ")[0];
+    const time = item.createdAt.split(" ")[1];
     return (
-      <Row key={item.id}>
-        <Col lg={4}>
-          <a href={item.url}>url{item.id}</a>
+      <Row key={item._id}>
+        <Col lg={4} xs={3}>
+          <a href={item.url}>url{item._id}</a>
         </Col>
-        <Col lg={4}>
+        <Col lg={4} xs={5}>
           {date}
         </Col>
-        <Col lg={4}>
+        <Col lg={4} xs={4}>
           {time}
         </Col>
       </Row>
@@ -32,13 +32,13 @@ const AllDownloads = (props) => {
       <Modal.Body className="grid-example">
         <Container>
           <Row>
-            <Col lg={4}>
+            <Col lg={4} xs={3}>
               URL
             </Col>
-            <Col lg={4} >
+            <Col lg={4} xs={5} >
               Download Date
             </Col>
-            <Col lg={4} >
+            <Col lg={4} xs={4} >
               Download Time
             </Col>
           </Row>
